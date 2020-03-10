@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="home_color">#4CAF50</color>
+    <color name="likes_color">#673AB7</color>
+    <color name="search_color">#3F51B5</color>
+    <color name="profile_color">#FF5722</color>
+</resources>
