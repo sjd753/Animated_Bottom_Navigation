@@ -7,10 +7,24 @@
     tools:context=".MainActivity"
     tools:ignore="HardcodedText">
 
-    <me.ibrahimsn.lib.SmoothBottomBar
-        android:id="@+id/smoothBottomBar"
-        android:layout_height="84dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.MaterialComponents"
+            app:title="@string/app_name" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.sjd.animatedbottomnavigation.SmoothBottomBarExt
+        android:id="@+id/smoothBottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
         android:layout_gravity="bottom"
         app:iconSize="28dp"
         app:iconTint="@android:color/darker_gray"
