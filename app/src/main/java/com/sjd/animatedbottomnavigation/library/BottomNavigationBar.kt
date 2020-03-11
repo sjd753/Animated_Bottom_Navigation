@@ -1,4 +1,4 @@
-package com.sjd.animatedbottomnavigation
+package com.sjd.animatedbottomnavigation.library
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
@@ -14,26 +14,25 @@ import android.view.View
 import android.view.animation.DecelerateInterpolator
 import androidx.annotation.FontRes
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.drawable.DrawableCompat
-import me.ibrahimsn.lib.BottomBarItem
-import me.ibrahimsn.lib.BottomBarParser
-import me.ibrahimsn.lib.Constants.DEFAULT_ANIM_DURATION
-import me.ibrahimsn.lib.Constants.DEFAULT_CORNER_RADIUS
-import me.ibrahimsn.lib.Constants.DEFAULT_ICON_MARGIN
-import me.ibrahimsn.lib.Constants.DEFAULT_ICON_SIZE
-import me.ibrahimsn.lib.Constants.DEFAULT_INDICATOR_COLOR
-import me.ibrahimsn.lib.Constants.DEFAULT_ITEM_PADDING
-import me.ibrahimsn.lib.Constants.DEFAULT_SIDE_MARGIN
-import me.ibrahimsn.lib.Constants.DEFAULT_TEXT_SIZE
-import me.ibrahimsn.lib.Constants.DEFAULT_TINT
-import me.ibrahimsn.lib.Constants.OPAQUE
-import me.ibrahimsn.lib.Constants.TRANSPARENT
-import me.ibrahimsn.lib.Constants.WHITE_COLOR_HEX
-import me.ibrahimsn.lib.OnItemReselectedListener
-import me.ibrahimsn.lib.OnItemSelectedListener
+import com.sjd.animatedbottomnavigation.R
+import com.sjd.animatedbottomnavigation.library.Constants.DEFAULT_ANIM_DURATION
+import com.sjd.animatedbottomnavigation.library.Constants.DEFAULT_CORNER_RADIUS
+import com.sjd.animatedbottomnavigation.library.Constants.DEFAULT_ICON_MARGIN
+import com.sjd.animatedbottomnavigation.library.Constants.DEFAULT_ICON_SIZE
+import com.sjd.animatedbottomnavigation.library.Constants.DEFAULT_INDICATOR_COLOR
+import com.sjd.animatedbottomnavigation.library.Constants.DEFAULT_ITEM_PADDING
+import com.sjd.animatedbottomnavigation.library.Constants.DEFAULT_SIDE_MARGIN
+import com.sjd.animatedbottomnavigation.library.Constants.DEFAULT_TEXT_SIZE
+import com.sjd.animatedbottomnavigation.library.Constants.DEFAULT_TINT
+import com.sjd.animatedbottomnavigation.library.Constants.OPAQUE
+import com.sjd.animatedbottomnavigation.library.Constants.TRANSPARENT
+import com.sjd.animatedbottomnavigation.library.Constants.WHITE_COLOR_HEX
 import kotlin.math.abs
 
-class SmoothBottomBarExt : View {
+
+class BottomNavigationBar : View {
 
     /**
      * Default attribute values
@@ -65,7 +64,9 @@ class SmoothBottomBarExt : View {
     private var currentIconTint = itemIconTintActive
     private var indicatorLocation = barSideMargins
 
-    private var items = listOf<BottomBarItem>()
+    private var items = listOf<BottomNavigationBarItem>()
+    private var itemColors: IntArray
+    private var itemIndicatorColors: IntArray
 
     private var onItemSelectedListener: OnItemSelectedListener? = null
     private var onItemReselectedListener: OnItemReselectedListener? = null
@@ -97,44 +98,81 @@ class SmoothBottomBarExt : View {
         attrs,
         defStyleAttr
     ) {
-        val typedArray =
-            context.theme.obtainStyledAttributes(attrs, R.styleable.SmoothBottomBar, 0, 0)
+        val typedArray = context.theme.obtainStyledAttributes(
+            attrs,
+            R.styleable.BottomNavigationBar, 0, 0
+        )
         barBackgroundColor = typedArray.getColor(
-            R.styleable.SmoothBottomBar_backgroundColor,
+            R.styleable.BottomNavigationBar_backgroundColor,
             this.barBackgroundColor
         )
-        barIndicatorColor =
-            typedArray.getColor(R.styleable.SmoothBottomBar_indicatorColor, this.barIndicatorColor)
-        barIndicatorRadius = typedArray.getDimension(
-            R.styleable.SmoothBottomBar_indicatorRadius,
-            this.barIndicatorRadius
+        barIndicatorColor = typedArray.getColor(
+            R.styleable.BottomNavigationBar_indicatorColor,
+            this.barIndicatorColor
         )
-        barSideMargins =
-            typedArray.getDimension(R.styleable.SmoothBottomBar_sideMargins, this.barSideMargins)
-        itemPadding =
-            typedArray.getDimension(R.styleable.SmoothBottomBar_itemPadding, this.itemPadding)
-        itemTextColor =
-            typedArray.getColor(R.styleable.SmoothBottomBar_textColor, this.itemTextColor)
-        itemTextSize =
-            typedArray.getDimension(R.styleable.SmoothBottomBar_textSize, this.itemTextSize)
-        itemIconSize =
-            typedArray.getDimension(R.styleable.SmoothBottomBar_iconSize, this.itemIconSize)
-        itemIconTint = typedArray.getColor(R.styleable.SmoothBottomBar_iconTint, this.itemIconTint)
-        itemIconTintActive =
-            typedArray.getColor(R.styleable.SmoothBottomBar_iconTintActive, this.itemIconTintActive)
-        activeItemIndex =
-            typedArray.getInt(R.styleable.SmoothBottomBar_activeItem, this.activeItemIndex)
+        barIndicatorRadius = typedArray.getDimension(
+            R.styleable.BottomNavigationBar_indicatorRadius, this.barIndicatorRadius
+        )
+        barSideMargins = typedArray.getDimension(
+            R.styleable.BottomNavigationBar_sideMargins,
+            this.barSideMargins
+        )
+        itemPadding = typedArray.getDimension(
+            R.styleable.BottomNavigationBar_itemPadding,
+            this.itemPadding
+        )
+        itemTextColor = typedArray.getColor(
+            R.styleable.BottomNavigationBar_textColor,
+            this.itemTextColor
+        )
+        itemTextSize = typedArray.getDimension(
+            R.styleable.BottomNavigationBar_textSize,
+            this.itemTextSize
+        )
+        itemIconSize = typedArray.getDimension(
+            R.styleable.BottomNavigationBar_iconSize,
+            this.itemIconSize
+        )
+        itemIconTint = typedArray.getColor(
+            R.styleable.BottomNavigationBar_iconTint,
+            this.itemIconTint
+        )
+        itemIconTintActive = typedArray.getColor(
+            R.styleable.BottomNavigationBar_iconTintActive,
+            this.itemIconTintActive
+        )
+        activeItemIndex = typedArray.getInt(
+            R.styleable.BottomNavigationBar_activeItem,
+            this.activeItemIndex
+        )
         itemFontFamily = typedArray.getResourceId(
-            R.styleable.SmoothBottomBar_itemFontFamily,
+            R.styleable.BottomNavigationBar_itemFontFamily,
             this.itemFontFamily
         )
-        itemAnimDuration =
-            typedArray.getInt(R.styleable.SmoothBottomBar_duration, this.itemAnimDuration.toInt())
-                .toLong()
-        items = BottomBarParser(
-            context,
-            typedArray.getResourceId(R.styleable.SmoothBottomBar_menu, 0)
+        itemAnimDuration = typedArray.getInt(
+            R.styleable.BottomNavigationBar_duration,
+            this.itemAnimDuration.toInt()
+        ).toLong()
+        items = BottomNavigationBarParser(
+            context, typedArray.getResourceId(
+                R.styleable.BottomNavigationBar_menu, 0
+            )
         ).parse()
+
+        val colorsId = typedArray.getResourceId(
+            R.styleable.BottomNavigationBar_menuItemColors,
+            R.array.menuItemColors
+        )
+        itemColors = typedArray.resources.getIntArray(colorsId)
+
+        if (itemColors.size != items.size) throw IllegalArgumentException("menuItemColors size must match with menu item size!")
+
+        itemIndicatorColors = IntArray(itemColors.size)
+        for ((index, _) in itemColors.withIndex()) {
+            val alphaColor = ColorUtils.setAlphaComponent(itemColors[index], 55)
+            itemIndicatorColors[index] = alphaColor
+        }
+        // recycle typed array
         typedArray.recycle()
 
         setBackgroundColor(barBackgroundColor)
@@ -147,6 +185,10 @@ class SmoothBottomBarExt : View {
         if (itemFontFamily != 0) {
             paintText.typeface = ResourcesCompat.getFont(context, itemFontFamily)
         }
+
+        setItemIndicatorColor(itemIndicatorColors[0])
+        setItemTextColor(itemColors[0])
+        setIconTintActive(itemColors[0])
     }
 
     fun setItemIndicatorColor(color: Int) {
@@ -174,7 +216,10 @@ class SmoothBottomBarExt : View {
         for (item in items) {
             // Prevent text overflow by shortening the item title
             var shorted = false
-            while (paintText.measureText(item.title) > itemWidth - itemIconSize - itemIconMargin - (itemPadding * 2)) {
+            while (paintText.measureText(
+                    item.title
+                ) > itemWidth - itemIconSize - itemIconMargin - (itemPadding * 2)
+            ) {
                 item.title = item.title.dropLast(1)
                 shorted = true
             }
@@ -244,6 +289,11 @@ class SmoothBottomBarExt : View {
                 if (item.rect.contains(event.x, event.y)) {
                     if (itemId != this.activeItemIndex) {
                         setActiveItem(itemId)
+
+                        setItemIndicatorColor(itemIndicatorColors[itemId])
+                        setItemTextColor(itemColors[itemId])
+                        setIconTintActive(itemColors[itemId])
+
                         onItemSelected(itemId)
                         onItemSelectedListener?.onItemSelect(itemId)
                     } else {
@@ -275,7 +325,7 @@ class SmoothBottomBarExt : View {
         return activeItemIndex
     }
 
-    private fun animateAlpha(item: BottomBarItem, to: Int) {
+    private fun animateAlpha(item: BottomNavigationBarItem, to: Int) {
         val animator = ValueAnimator.ofInt(item.alpha, to)
         animator.duration = itemAnimDuration
 
