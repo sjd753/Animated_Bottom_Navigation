@@ -49,8 +49,8 @@ dependencies {
 
 ```xml
 <com.sjd.animatedbottomnavigation.library.BottomNavigationBar
-		app:menu="" // menu resource for bottom nav (should be upto 4)
-		app:menuItemColors="@array/menuItemColors" // optional menu item accent colors for icon and text tint & background
+	app:menu="" // menu resource for bottom nav (should be upto 4)
+	app:menuItemColors="@array/menuItemColors" // optional menu item accent colors for icon and text tint & background
         app:backgroundColor="" // optional bottom nav view background color
         app:indicatorColor="" // optional indicator color (this is overridden by app:menuItemColors if set)
         app:indicatorRadius="" // optional indicator radius
