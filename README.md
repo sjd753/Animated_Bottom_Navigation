@@ -2,7 +2,7 @@
 
 A lightweight library for your awesome animated bottom navigation with cool customization options!
 
-## Latest version: (https://jitpack.io/#sjd753/Animated_Bottom_Navigation)
+### Latest version: (https://jitpack.io/#sjd753/Animated_Bottom_Navigation)
 
 ## How to use 
 
