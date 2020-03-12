@@ -4,37 +4,39 @@ A lightweight library for your awesome animated bottom navigation with cool cust
 
 ### Latest version: (https://jitpack.io/#sjd753/Animated_Bottom_Navigation)
 
+![preview](https://github.com/sjd753/Animated_Bottom_Navigation/blob/master/sample/preview-2.gif)
+
 ## How to use 
 
 ### Step 1. Add the JitPack repository to your build file
 
 Add it in your root build.gradle at the end of repositories:
 
-```kotlin
+```
 allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
 	}
+}
 ```
  
 ### Step 2. Add the dependency
 
 ```
 dependencies {
-	        implementation 'com.github.sjd753:Animated_Bottom_Navigation:Tag'
-	}
+	implementation 'com.github.sjd753:Animated_Bottom_Navigation:Tag'
+}
 ```
 ### Step 3. Add BottomNavigationView in layout
 
-```
+```xml
  <com.sjd.animatedbottomnavigation.library.BottomNavigationBar
         android:id="@+id/bottomNavigationBar"
         android:layout_width="match_parent"
         android:layout_height="84dp"
         android:layout_gravity="bottom"
-        app:iconSize="28dp"
+        app:iconSize="28dp"					   
         app:iconTint="@android:color/darker_gray"
         app:iconTintActive="@color/colorPrimary"
         app:indicatorColor="@color/colorPrimaryAlpha"
@@ -45,9 +47,10 @@ dependencies {
 ```
 ### Customization 
 
-```
-	app:menu="" // menu resource for bottom nav (should be upto 4)
-	app:menuItemColors="@array/menuItemColors" // optional menu item accent colors for icon and text tint & background
+```xml
+<com.sjd.animatedbottomnavigation.library.BottomNavigationBar
+		app:menu="" // menu resource for bottom nav (should be upto 4)
+		app:menuItemColors="@array/menuItemColors" // optional menu item accent colors for icon and text tint & background
         app:backgroundColor="" // optional bottom nav view background color
         app:indicatorColor="" // optional indicator color (this is overridden by app:menuItemColors if set)
         app:indicatorRadius="" // optional indicator radius
@@ -60,7 +63,7 @@ dependencies {
         app:iconTint="" // optional icon tint
         app:iconTintActive="" // optional active / selected icon tint (this is overridden by app:menuItemColors if set)
         app:activeItem="" // optional active / selected item
-        app:duration="" // optional animation duration
+        app:duration="" // optional animation duration />
 ```
 	
 
