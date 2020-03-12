@@ -1,4 +1,4 @@
-# Animated Bottom Navigation
+# Animated Bottom Navigation ![version](https://jitpack.io/v/sjd753/Animated_Bottom_Navigation.svg)
 
 A lightweight library for your awesome animated bottom navigation with cool customization options!
 
