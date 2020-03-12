@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Animated Bottom Navigation</string>
-    <string name="ellipsis">…</string>
+
     <string name="home">Home</string>
     <string name="likes">Likes</string>
     <string name="search">Search</string>

@@ -18,9 +18,9 @@
     <color name="profile_color_alpha">#55FF5722</color>
 
     <array name="menuItemColors">
-        <item>@color/home_color</item>
-        <item>@color/likes_color</item>
-        <item>@color/search_color</item>
         <item>@color/profile_color</item>
+        <item>@color/search_color</item>
+        <item>@color/likes_color</item>
+        <item>@color/home_color</item>
     </array>
 </resources>
